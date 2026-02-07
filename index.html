@@ -539,6 +539,27 @@
             padding: 1.5rem 1.25rem;
             text-align: center;
             color: white;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            width: 2.25rem;
+            height: 2.25rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .phase-badge {
@@ -1692,6 +1713,8 @@
         <!-- Warmup -->
         <div class="screen" id="warmup">
             <div class="phase-header">
+                <button class="back-btn" onclick="goBack()"><i data-lucide="arrow-left"
+                        style="width:1rem;height:1rem;"></i></button>
                 <div class="phase-badge"><i data-lucide="zap" style="width:0.875rem;height:0.875rem;"></i> Warm-up</div>
                 <h2 class="phase-title">Vocabulary Match</h2>
                 <p class="phase-time">3 minutes • 5 rapid-fire questions</p>
@@ -1714,6 +1737,8 @@
         <!-- Module Sprint -->
         <div class="screen" id="module">
             <div class="phase-header" id="coreHeader">
+                <button class="back-btn" onclick="goBack()"><i data-lucide="arrow-left"
+                        style="width:1rem;height:1rem;"></i></button>
                 <div class="phase-badge"><i data-lucide="target" style="width:0.875rem;height:0.875rem;"></i> Core Task
                 </div>
                 <h2 class="phase-title" id="coreTitle">Listening Practice</h2>
@@ -1951,6 +1976,22 @@
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             lucide.createIcons();
+        }
+
+        function goBack() {
+            // Stop timer
+            clearInterval(timerInt);
+            // Reset state
+            globalTime = 15 * 60;
+            warmupIdx = 0;
+            listenIdx = 0;
+            readIdx = 0;
+            correct = 0;
+            // Reset timer display
+            document.getElementById('timerText').textContent = '15:00';
+            document.getElementById('timer').classList.remove('warning', 'danger');
+            // Show dashboard
+            showScreen('dashboard');
         }
 
         function updateTimer() {
