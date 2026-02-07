@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Sprint | Leap Scholar IELTS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --primary-light: #818CF8;
+            --accent: #F59E0B;
+            --accent-light: #FCD34D;
+            --success: #10B981;
+            --danger: #EF4444;
+            --surface: #FFFFFF;
+            --surface-2: #F9FAFB;
+            --surface-3: #F3F4F6;
+            --border: #E5E7EB;
+            --text: #111827;
+            --text-2: #4B5563;
+            --text-3: #9CA3AF;
+            --gradient-1: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+            --gradient-2: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+            --radius: 16px;
+            --radius-sm: 12px;
+            --radius-xs: 8px;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--surface-2);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* ========== MOBILE FIRST ========== */
+        .app {
+            min-height: 100vh;
+            background: var(--surface);
+        }
+
+        .header {
+            background: var(--gradient-1);
+            padding: 1rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            color: white;
+        }
+
+        .logo-icon {
+            width: 2.25rem;
+            height: 2.25rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            display: grid;
+            place-items: center;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 0.5rem 0.875rem;
+            border-radius: 2rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .timer.warning {
+            background: rgba(245, 158, 11, 0.5);
+        }
+
+        .timer.danger {
+            background: rgba(239, 68, 68, 0.5);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .main {
+            padding: 1.25rem;
+        }
+
+        .greeting {
+            margin-bottom: 1.5rem;
+        }
+
+        .greeting-sub {
+            font-size: 0.875rem;
+            color: var(--text-3);
+            margin-bottom: 0.25rem;
+        }
+
+        .greeting-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        /* Stats Grid */
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem;
+        }
+
+        .stat-card.streak {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            border: none;
+        }
+
+        .stat-emoji {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card.streak .stat-label {
+            color: #92400E;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+        }
+
+        .stat-card.streak .stat-value {
+            color: #92400E;
+        }
+
+        .progress-track {
+            height: 0.375rem;
+            background: var(--surface-3);
+            border-radius: 0.25rem;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 0.25rem;
+            transition: width 0.4s ease;
+        }
+
+        /* Focus Module */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--text-2);
+            margin-bottom: 0.875rem;
+        }
+
+        .focus-card {
+            background: var(--gradient-1);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .focus-card::before {
+            content: '';
+            position: absolute;
+            right: -2rem;
+            top: -2rem;
+            width: 8rem;
+            height: 8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .focus-top {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .focus-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.875rem;
+            display: grid;
+            place-items: center;
+            font-size: 1.75rem;
+        }
+
+        .focus-info {
+            flex: 1;
+        }
+
+        .focus-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .focus-desc {
+            font-size: 0.8125rem;
+            opacity: 0.9;
+        }
+
+        .focus-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.375rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .focus-cta {
+            width: 100%;
+            padding: 0.875rem;
+            background: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            color: var(--primary-dark);
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .focus-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Upcoming */
+        .upcoming {
+            margin-bottom: 1.5rem;
+        }
+
+        .upcoming-label {
+            font-size: 0.75rem;
+            color: var(--text-3);
+            margin-bottom: 0.625rem;
+        }
+
+        .upcoming-row {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.25rem;
+        }
+
+        .upcoming-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            background: var(--surface-3);
+            padding: 0.5rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .upcoming-chip .day {
+            color: var(--text-3);
+        }
+
+        /* Roadmap */
+        .roadmap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Module Picker */
+        .module-picker {
+            margin-bottom: 1.5rem;
+        }
+
+        .picker-label {
+            font-size: 0.75rem;
+            color: var(--text-3);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .picker-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.625rem;
+        }
+
+        .pick-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 0.875rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pick-card:hover {
+            border-color: var(--primary-light);
+            background: #F5F3FF;
+        }
+
+        .pick-card .icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.375rem;
+        }
+
+        .pick-card .name {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-2);
+        }
+
+        @media (min-width: 768px) {
+            .pick-card {
+                padding: 1rem;
+            }
+
+            .pick-card .icon {
+                font-size: 1.75rem;
+            }
+
+            .pick-card .name {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .pick-card {
+                padding: 1.25rem;
+            }
+
+            .pick-card .icon {
+                font-size: 2rem;
+            }
+
+            .pick-card .name {
+                font-size: 0.8125rem;
+            }
+        }
+
+        .roadmap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .roadmap-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+
+        .roadmap-week {
+            font-size: 0.75rem;
+            color: var(--text-3);
+        }
+
+        .days-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .day-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .day-circle {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 0.375rem;
+            font-size: 1.125rem;
+            background: var(--surface-3);
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .day-circle.done {
+            background: var(--success);
+            color: white;
+        }
+
+        .day-circle.today {
+            border-color: var(--primary);
+            background: #EEF2FF;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .day-name {
+            font-size: 0.625rem;
+            font-weight: 600;
+            color: var(--text-3);
+            text-transform: uppercase;
+        }
+
+        .day-name.today {
+            color: var(--primary);
+        }
+
+        /* Tip Card */
+        .tip {
+            background: linear-gradient(135deg, #EEF2FF, #E0E7FF);
+            border-radius: var(--radius);
+            padding: 1rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .tip-icon {
+            width: 2rem;
+            height: 2rem;
+            background: var(--primary);
+            border-radius: 0.5rem;
+            display: grid;
+            place-items: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .tip-text {
+            font-size: 0.8125rem;
+            color: var(--primary-dark);
+        }
+
+        .tip-text strong {
+            font-weight: 700;
+        }
+
+        /* Prototype Notice */
+        .prototype-notice {
+            background: #FEF3C7;
+            border: 1px solid #F59E0B;
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+            font-size: 0.75rem;
+            color: #92400E;
+            line-height: 1.4;
+        }
+
+        .prototype-notice strong {
+            font-weight: 700;
+        }
+
+        /* ========== SCREENS ========== */
+        .screen {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .phase-header {
+            background: var(--gradient-1);
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+            color: white;
+        }
+
+        .phase-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.375rem 0.875rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-title {
+            font-size: 1.375rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-time {
+            font-size: 0.8125rem;
+            opacity: 0.9;
+        }
+
+        .phase-timeline {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .phase-step {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.625rem;
+            font-weight: 600;
+            opacity: 0.7;
+        }
+
+        .phase-step.active {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+        }
+
+        .phase-step .dot {
+            width: 0.375rem;
+            height: 0.375rem;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .q-area {
+            padding: 1.25rem;
+        }
+
+        .q-progress {
+            display: flex;
+            gap: 0.375rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .q-bar {
+            flex: 1;
+            height: 0.3125rem;
+            background: var(--surface-3);
+            border-radius: 0.25rem;
+        }
+
+        .q-bar.done {
+            background: var(--success);
+        }
+
+        .q-bar.current {
+            background: var(--accent);
+        }
+
+        .q-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .q-num {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-3);
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .q-text {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+
+        .q-text .hl {
+            color: var(--primary);
+        }
+
+        .opts {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .opt {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--surface-2);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            color: var(--text);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.15s;
+        }
+
+        .opt:hover {
+            border-color: var(--primary-light);
+            background: #F5F3FF;
+        }
+
+        .opt.correct {
+            border-color: var(--success);
+            background: #ECFDF5;
+        }
+
+        .opt.wrong {
+            border-color: var(--danger);
+            background: #FEF2F2;
+        }
+
+        .opt-letter {
+            width: 1.75rem;
+            height: 1.75rem;
+            background: var(--surface-3);
+            border-radius: 0.375rem;
+            display: grid;
+            place-items: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-3);
+            flex-shrink: 0;
+        }
+
+        /* Module Panels */
+        .m-tabs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.875rem 1.25rem;
+            background: var(--surface-2);
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .m-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            font-family: inherit;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-2);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s;
+        }
+
+        .m-tab:hover {
+            border-color: var(--primary-light);
+        }
+
+        .m-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .m-panel {
+            display: none;
+            padding: 1.25rem;
+        }
+
+        .m-panel.active {
+            display: block;
+        }
+
+        /* Audio */
+        .audio-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .audio-vis {
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .a-bar {
+            width: 0.3125rem;
+            background: var(--primary);
+            border-radius: 0.25rem;
+            animation: wave 0.8s ease-in-out infinite;
+        }
+
+        .a-bar:nth-child(1) {
+            height: 1.25rem;
+            animation-delay: 0s;
+        }
+
+        .a-bar:nth-child(2) {
+            height: 2rem;
+            animation-delay: 0.1s;
+        }
+
+        .a-bar:nth-child(3) {
+            height: 2.75rem;
+            animation-delay: 0.15s;
+        }
+
+        .a-bar:nth-child(4) {
+            height: 1.5rem;
+            animation-delay: 0.2s;
+        }
+
+        .a-bar:nth-child(5) {
+            height: 2.5rem;
+            animation-delay: 0.25s;
+        }
+
+        .a-bar:nth-child(6) {
+            height: 1.75rem;
+            animation-delay: 0.3s;
+        }
+
+        .a-bar:nth-child(7) {
+            height: 3rem;
+            animation-delay: 0.35s;
+        }
+
+        .a-bar:nth-child(8) {
+            height: 1.375rem;
+            animation-delay: 0.4s;
+        }
+
+        .audio-box.paused .a-bar {
+            animation: none;
+            height: 0.5rem !important;
+            background: var(--text-3);
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: scaleY(1);
+            }
+
+            50% {
+                transform: scaleY(0.4);
+            }
+        }
+
+        .audio-ctrl {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .play-btn {
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .track {
+            flex: 1;
+            height: 0.5rem;
+            background: var(--surface-3);
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+
+        .track-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .audio-time {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-3);
+            min-width: 4rem;
+            text-align: right;
+        }
+
+        /* Reading */
+        .passage {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            max-height: 14rem;
+            overflow-y: auto;
+        }
+
+        .passage-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .passage-text {
+            font-size: 0.9375rem;
+            line-height: 1.75;
+            color: var(--text-2);
+        }
+
+        .tfn-btns {
+            display: flex;
+            gap: 0.625rem;
+            margin-top: 1.25rem;
+        }
+
+        .tfn {
+            flex: 1;
+            padding: 0.875rem;
+            background: var(--surface-2);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .tfn:hover {
+            border-color: var(--primary-light);
+        }
+
+        .tfn.selected {
+            border-color: var(--primary);
+            background: #EEF2FF;
+        }
+
+        /* Speaking */
+        .speak-prompt {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .speak-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .speak-text {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .rec-zone {
+            text-align: center;
+        }
+
+        .rec-btn {
+            width: 5rem;
+            height: 5rem;
+            background: linear-gradient(135deg, var(--danger), #DC2626);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: inline-grid;
+            place-items: center;
+            margin-bottom: 0.75rem;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.2s;
+        }
+
+        .rec-btn.recording {
+            animation: rec-pulse 1.2s infinite;
+        }
+
+        @keyframes rec-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 1.5rem rgba(239, 68, 68, 0);
+            }
+        }
+
+        .rec-status {
+            font-size: 0.875rem;
+            color: var(--text-3);
+        }
+
+        .rec-status.active {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .waveform {
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.125rem;
+            margin-top: 1.25rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .waveform.active {
+            opacity: 1;
+        }
+
+        .wv-bar {
+            width: 0.25rem;
+            background: var(--danger);
+            border-radius: 0.125rem;
+            animation: wv 0.4s ease-in-out infinite alternate;
+        }
+
+        @keyframes wv {
+            from {
+                height: 0.5rem;
+            }
+
+            to {
+                height: 2.25rem;
+            }
+        }
+
+        .done-btn {
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--primary);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .done-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Writing */
+        .write-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+        }
+
+        .write-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .messy {
+            background: #FEF2F2;
+            border: 1px dashed var(--danger);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: #991B1B;
+            margin-bottom: 1rem;
+        }
+
+        .fix-input {
+            width: 100%;
+            background: var(--surface-2);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            resize: none;
+            min-height: 5rem;
+            transition: border-color 0.2s;
+        }
+
+        .fix-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .fix-input.correct {
+            border-color: var(--success);
+            background: #ECFDF5;
+        }
+
+        .check-btn {
+            width: 100%;
+            margin-top: 0.875rem;
+            padding: 0.875rem;
+            background: var(--primary);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: white;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Result Modal */
+        .result-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            place-items: center;
+            padding: 1.5rem;
+        }
+
+        .result-overlay.active {
+            display: grid;
+        }
+
+        .result-box {
+            width: 100%;
+            max-width: 24rem;
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            animation: modal-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modal-in {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(1rem);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .result-icon {
+            width: 4.5rem;
+            height: 4.5rem;
+            background: linear-gradient(135deg, var(--success), #34D399);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 1.25rem;
+        }
+
+        .result-title {
+            font-size: 1.375rem;
+            font-weight: 800;
+            margin-bottom: 0.375rem;
+        }
+
+        .result-desc {
+            font-size: 0.9375rem;
+            color: var(--text-2);
+            margin-bottom: 1.5rem;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .r-stat {
+            background: var(--surface-2);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+        }
+
+        .r-stat-label {
+            font-size: 0.625rem;
+            font-weight: 600;
+            color: var(--text-3);
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .r-stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .r-stat-value.green {
+            color: var(--success);
+        }
+
+        .band-box {
+            background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .momentum-boost {
+            animation: boost-pulse 1s ease-in-out;
+        }
+
+        @keyframes boost-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+        }
+
+        .band-note {
+            font-size: 0.6875rem;
+            margin-top: 0.25rem;
+            opacity: 0.8;
+        }
+
+        .phase-step.done {
+            opacity: 1;
+            color: #10B981;
+        }
+
+        .review-timeline {
+            margin-bottom: 1rem;
+            background: var(--surface-2);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .band-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #065F46;
+            margin-bottom: 0.25rem;
+        }
+
+        .band-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #047857;
+        }
+
+        .next-box {
+            background: var(--surface-2);
+            border-radius: var(--radius-sm);
+            padding: 0.875rem;
+            margin-bottom: 1.25rem;
+            font-size: 0.9375rem;
+            color: var(--text-2);
+        }
+
+        .next-box strong {
+            color: var(--primary);
+        }
+
+        .finish-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* ========== TABLET (768px+) ========== */
+        @media (min-width: 768px) {
+            .app {
+                max-width: 40rem;
+                margin: 0 auto;
+            }
+
+            .main {
+                padding: 1.75rem;
+            }
+
+            .greeting-title {
+                font-size: 1.75rem;
+            }
+
+            .stats {
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.25rem;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+
+            .focus-card {
+                padding: 1.5rem;
+            }
+
+            .focus-icon {
+                width: 4rem;
+                height: 4rem;
+                font-size: 2rem;
+            }
+
+            .focus-name {
+                font-size: 1.375rem;
+            }
+
+            .day-circle {
+                width: 3rem;
+                height: 3rem;
+                font-size: 1.25rem;
+            }
+
+            .q-area {
+                padding: 1.75rem;
+            }
+
+            .q-card {
+                padding: 1.5rem;
+            }
+
+            .q-text {
+                font-size: 1.125rem;
+            }
+
+            .opts {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.75rem;
+            }
+
+            .m-panel {
+                padding: 1.75rem;
+            }
+
+            .result-box {
+                padding: 2.5rem 2rem;
+            }
+        }
+
+        /* ========== DESKTOP (1024px+) ========== */
+        @media (min-width: 1024px) {
+            body {
+                background: linear-gradient(135deg, #EEF2FF, #E0E7FF);
+                padding: 2.5rem;
+            }
+
+            .app {
+                max-width: 52rem;
+                min-height: auto;
+                border-radius: 1.5rem;
+                box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.12);
+                overflow: hidden;
+            }
+
+            .header {
+                padding: 1.25rem 2rem;
+                border-radius: 1.5rem 1.5rem 0 0;
+            }
+
+            .logo-icon {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .logo-text {
+                font-size: 1.125rem;
+            }
+
+            .timer {
+                padding: 0.625rem 1rem;
+                font-size: 0.9375rem;
+            }
+
+            .main {
+                padding: 2.5rem;
+            }
+
+            .greeting {
+                margin-bottom: 2rem;
+            }
+
+            .greeting-title {
+                font-size: 2rem;
+            }
+
+            .stats {
+                gap: 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem;
+            }
+
+            .stat-emoji {
+                font-size: 1.75rem;
+            }
+
+            .stat-value {
+                font-size: 2.25rem;
+            }
+
+            .section-title {
+                font-size: 0.875rem;
+                margin-bottom: 1rem;
+            }
+
+            .focus-card {
+                padding: 1.75rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .focus-icon {
+                width: 4.5rem;
+                height: 4.5rem;
+                font-size: 2.25rem;
+            }
+
+            .focus-name {
+                font-size: 1.5rem;
+            }
+
+            .focus-desc {
+                font-size: 0.875rem;
+            }
+
+            .focus-cta {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            .upcoming {
+                margin-bottom: 2rem;
+            }
+
+            .roadmap {
+                padding: 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .day-circle {
+                width: 3.25rem;
+                height: 3.25rem;
+                font-size: 1.375rem;
+            }
+
+            .day-name {
+                font-size: 0.6875rem;
+            }
+
+            .tip {
+                padding: 1.25rem;
+            }
+
+            .phase-header {
+                padding: 2rem;
+            }
+
+            .phase-title {
+                font-size: 1.625rem;
+            }
+
+            .q-area {
+                padding: 2.5rem;
+            }
+
+            .q-card {
+                padding: 2rem;
+            }
+
+            .q-text {
+                font-size: 1.25rem;
+            }
+
+            .opt {
+                padding: 1rem 1.25rem;
+            }
+
+            .m-tabs {
+                padding: 1rem 2rem;
+                gap: 0.75rem;
+            }
+
+            .m-tab {
+                padding: 0.625rem 1.25rem;
+                font-size: 0.875rem;
+            }
+
+            .m-panel {
+                padding: 2.5rem;
+            }
+
+            .audio-box {
+                padding: 1.75rem;
+            }
+
+            .play-btn {
+                width: 3.5rem;
+                height: 3.5rem;
+            }
+
+            .passage {
+                padding: 1.5rem;
+                max-height: 18rem;
+            }
+
+            .passage-title {
+                font-size: 1.125rem;
+            }
+
+            .speak-prompt {
+                padding: 2rem;
+            }
+
+            .speak-text {
+                font-size: 1.125rem;
+            }
+
+            .rec-btn {
+                width: 6rem;
+                height: 6rem;
+            }
+
+            .write-card {
+                padding: 1.75rem;
+            }
+
+            .result-box {
+                max-width: 28rem;
+                padding: 3rem 2.5rem;
+            }
+
+            .result-icon {
+                width: 5.5rem;
+                height: 5.5rem;
+            }
+
+            .result-title {
+                font-size: 1.625rem;
+            }
+
+            .r-stat-value {
+                font-size: 1.75rem;
+            }
+
+            .band-value {
+                font-size: 2rem;
+            }
+        }
+
+        /* ========== LARGE DESKTOP (1440px+) ========== */
+        @media (min-width: 1440px) {
+            body {
+                padding: 4rem;
+            }
+
+            .app {
+                max-width: 60rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon"><i data-lucide="graduation-cap" style="width:1.25rem;height:1.25rem;"></i></div>
+                <span class="logo-text">Leap Scholar</span>
+            </div>
+            <div class="timer" id="timer">
+                <i data-lucide="clock" style="width:1rem;height:1rem;"></i>
+                <span id="timerText">15:00</span>
+            </div>
+        </header>
+
+        <!-- Dashboard -->
+        <div class="screen active" id="dashboard">
+            <div class="main">
+                <div class="greeting">
+                    <p class="greeting-sub">Welcome back! 👋</p>
+                    <h1 class="greeting-title">Your Daily Sprint</h1>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-card streak">
+                        <div class="stat-emoji">🔥</div>
+                        <div class="stat-label">Day Streak</div>
+                        <div class="stat-value" id="streak">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">⏱️</div>
+                        <div class="stat-label">Today</div>
+                        <div class="stat-value" style="font-size:1.25rem;"><span id="mins">0</span>/15 min</div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progress" style="width:0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">
+                    <i data-lucide="target" style="width:1rem;height:1rem;color:#6366F1;"></i>
+                    Today's Focus
+                </div>
+
+                <div class="focus-card">
+                    <div class="focus-top">
+                        <div class="focus-icon" id="focusIcon">🎧</div>
+                        <div class="focus-info">
+                            <div class="focus-name" id="focusName">Listening</div>
+                            <div class="focus-desc" id="focusDesc">Practice audio comprehension</div>
+                        </div>
+                        <div class="focus-badge">15 min</div>
+                    </div>
+                    <button class="focus-cta" onclick="startSprint()">
+                        <i data-lucide="play" style="width:1.125rem;height:1.125rem;"></i>
+                        Start <span id="ctaName">Listening</span> Sprint
+                    </button>
+                </div>
+
+                <div class="upcoming">
+                    <div class="upcoming-label">Coming up this week:</div>
+                    <div class="upcoming-row" id="upcomingRow"></div>
+                </div>
+
+                <div class="roadmap">
+                    <div class="roadmap-header">
+                        <div class="roadmap-title">📅 Weekly Roadmap</div>
+                        <span class="roadmap-week">Week 1</span>
+                    </div>
+                    <div class="days-row" id="daysRow"></div>
+                </div>
+
+                <div class="module-picker">
+                    <div class="picker-label">
+                        <i data-lucide="grid-3x3" style="width:0.875rem;height:0.875rem;"></i>
+                        Or choose a module:
+                    </div>
+                    <div class="picker-grid">
+                        <div class="pick-card" onclick="startModulePractice('listening')">
+                            <div class="icon">🎧</div>
+                            <div class="name">Listening</div>
+                        </div>
+                        <div class="pick-card" onclick="startModulePractice('reading')">
+                            <div class="icon">📖</div>
+                            <div class="name">Reading</div>
+                        </div>
+                        <div class="pick-card" onclick="startModulePractice('speaking')">
+                            <div class="icon">🎤</div>
+                            <div class="name">Speaking</div>
+                        </div>
+                        <div class="pick-card" onclick="startModulePractice('writing')">
+                            <div class="icon">✍️</div>
+                            <div class="name">Writing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <div class="tip-icon"><i data-lucide="lightbulb" style="width:1rem;height:1rem;"></i></div>
+                    <p class="tip-text"><strong>Pro tip:</strong> 15 minutes daily = +0.5 band score in 30 days!</p>
+                </div>
+
+                <div class="prototype-notice">
+                    <i data-lucide="info" style="width:0.875rem;height:0.875rem;flex-shrink:0;"></i>
+                    <span><strong>Prototype:</strong> Listening audio & Speaking recording are simulated. Reading &
+                        Writing modules fully work.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warmup -->
+        <div class="screen" id="warmup">
+            <div class="phase-header">
+                <div class="phase-badge"><i data-lucide="zap" style="width:0.875rem;height:0.875rem;"></i> Warm-up</div>
+                <h2 class="phase-title">Vocabulary Match</h2>
+                <p class="phase-time">3 minutes • 5 rapid-fire questions</p>
+                <div class="phase-timeline">
+                    <div class="phase-step active"><span class="dot"></span> Warm-up (3m)</div>
+                    <div class="phase-step"><span class="dot"></span> Core Task (10m)</div>
+                    <div class="phase-step"><span class="dot"></span> Review (2m)</div>
+                </div>
+            </div>
+            <div class="q-area">
+                <div class="q-progress" id="warmupProgress"></div>
+                <div class="q-card">
+                    <div class="q-num" id="warmupNum">Question 1 of 5</div>
+                    <p class="q-text">What is the meaning of "<span class="hl" id="warmupWord">ubiquitous</span>"?</p>
+                    <div class="opts" id="warmupOpts"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module Sprint -->
+        <div class="screen" id="module">
+            <div class="phase-header" id="coreHeader">
+                <div class="phase-badge"><i data-lucide="target" style="width:0.875rem;height:0.875rem;"></i> Core Task
+                </div>
+                <h2 class="phase-title" id="coreTitle">Listening Practice</h2>
+                <p class="phase-time">10 minutes • Module-specific task</p>
+                <div class="phase-timeline">
+                    <div class="phase-step"><span class="dot"></span> Warm-up (3m)</div>
+                    <div class="phase-step active"><span class="dot"></span> Core Task (10m)</div>
+                    <div class="phase-step"><span class="dot"></span> Review (2m)</div>
+                </div>
+            </div>
+            <div class="m-tabs">
+                <button class="m-tab active" data-m="listening">🎧 Listening</button>
+                <button class="m-tab" data-m="reading">📖 Reading</button>
+                <button class="m-tab" data-m="speaking">🎤 Speaking</button>
+                <button class="m-tab" data-m="writing">✍️ Writing</button>
+            </div>
+
+            <div class="m-panel active" id="listeningPanel">
+                <div class="audio-box paused" id="audioBox">
+                    <div class="audio-vis">
+                        <div class="a-bar"></div>
+                        <div class="a-bar"></div>
+                        <div class="a-bar"></div>
+                        <div class="a-bar"></div>
+                        <div class="a-bar"></div>
+                        <div class="a-bar"></div>
+                        <div class="a-bar"></div>
+                        <div class="a-bar"></div>
+                    </div>
+                    <div class="audio-ctrl">
+                        <button class="play-btn" onclick="toggleAudio()"><i data-lucide="play"
+                                style="width:1.25rem;height:1.25rem;"></i></button>
+                        <div class="track">
+                            <div class="track-fill" id="trackFill"></div>
+                        </div>
+                        <span class="audio-time"><span id="audioTime">0:00</span> / 1:30</span>
+                    </div>
+                </div>
+                <div class="q-card">
+                    <div class="q-num" id="listenNum">Question 1 of 3</div>
+                    <p class="q-text" id="listenQ">What is the main topic?</p>
+                    <div class="opts" id="listenOpts"></div>
+                </div>
+            </div>
+
+            <div class="m-panel" id="readingPanel">
+                <div class="passage">
+                    <div class="passage-title">The Rise of Remote Work</div>
+                    <p class="passage-text">The COVID-19 pandemic transformed how organizations work. Before 2020,
+                        remote work was a perk. The shift revealed productivity could be maintained outside offices.
+                        Studies showed employees saved 40 mins daily. Many reported better work-life balance. Hybrid
+                        models have emerged as dominant.</p>
+                </div>
+                <div class="q-card">
+                    <div class="q-num" id="readNum">Question 1 of 3</div>
+                    <p class="q-text" id="readQ">Remote work was common before the pandemic.</p>
+                    <div class="tfn-btns">
+                        <button class="tfn" onclick="selectTFN(this,'true')">True</button>
+                        <button class="tfn" onclick="selectTFN(this,'false')">False</button>
+                        <button class="tfn" onclick="selectTFN(this,'ng')">Not Given</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-panel" id="speakingPanel">
+                <div class="speak-prompt">
+                    <div class="speak-label">Speaking Prompt</div>
+                    <p class="speak-text">"Describe a book you recently read. What was it about and how did it make you
+                        feel?"</p>
+                </div>
+                <div class="rec-zone">
+                    <button class="rec-btn" id="recBtn" onclick="toggleRec()">
+                        <i data-lucide="mic" style="width:2rem;height:2rem;"></i>
+                    </button>
+                    <p class="rec-status" id="recStatus">Tap to start recording</p>
+                    <div class="waveform" id="waveform"></div>
+                    <button class="done-btn" onclick="completeSpeaking()">Done Practicing</button>
+                </div>
+            </div>
+
+            <div class="m-panel" id="writingPanel">
+                <div class="write-card">
+                    <div class="write-label">Fix this sentence:</div>
+                    <div class="messy">The student which was late, they forgot their homework and didnt brought the
+                        textbook.</div>
+                    <textarea class="fix-input" id="fixInput" placeholder="Type corrected sentence..."></textarea>
+                    <button class="check-btn" onclick="checkWriting()">Check My Answer</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result -->
+        <div class="result-overlay" id="result">
+            <div class="result-box">
+                <div class="phase-timeline review-timeline">
+                    <div class="phase-step done"><span class="dot"></span> Warm-up ✓</div>
+                    <div class="phase-step done"><span class="dot"></span> Core Task ✓</div>
+                    <div class="phase-step active"><span class="dot"></span> Review</div>
+                </div>
+                <div class="result-icon"><i data-lucide="trophy" style="width:2rem;height:2rem;color:white;"></i></div>
+                <h2 class="result-title">Sprint Complete! 🎉</h2>
+                <p class="result-desc">Amazing work on today's practice!</p>
+                <div class="result-stats">
+                    <div class="r-stat">
+                        <div class="r-stat-label">Score</div>
+                        <div class="r-stat-value green" id="finalScore">85%</div>
+                    </div>
+                    <div class="r-stat">
+                        <div class="r-stat-label">Time</div>
+                        <div class="r-stat-value" id="finalTime">14:32</div>
+                    </div>
+                </div>
+                <div class="band-box momentum-boost">
+                    <div class="band-label">🚀 Momentum Boost</div>
+                    <div class="band-value">+0.1 Band Score</div>
+                    <p class="band-note">Keep your streak going!</p>
+                </div>
+                <div class="next-box" id="nextBox">Tomorrow: <strong>📖 Reading</strong></div>
+                <button class="finish-btn" onclick="finish()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        localStorage.removeItem('ieltsStreak');
+        localStorage.removeItem('ieltsLastCompletion');
+
+        const modules = {
+            listening: { name: 'Listening', icon: '🎧', desc: 'Practice audio comprehension' },
+            reading: { name: 'Reading', icon: '📖', desc: 'Analyze passages with T/F/NG' },
+            speaking: { name: 'Speaking', icon: '🎤', desc: 'Record responses to prompts' },
+            writing: { name: 'Writing', icon: '✍️', desc: 'Fix grammar and sentence structure' }
+        };
+
+        const schedule = ['listening', 'reading', 'speaking', 'writing', 'listening', 'reading', 'speaking'];
+        const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        let todayMod = 'listening';
+        let originalTodayMod = 'listening'; // Store the actual daily module
+        let isDailySprint = false; // Track if user started with daily sprint
+        let globalTime = 15 * 60;
+        let timerInt = null;
+        let warmupIdx = 0, listenIdx = 0, readIdx = 0, correct = 0;
+        let isPlaying = false, isRec = false, audioProgress = 0;
+        let streak = 0, lastDone = '';
+
+        const warmupQs = [
+            { word: 'ubiquitous', opts: ['Present everywhere', 'Extremely rare', 'Very expensive', 'Highly dangerous'], ans: 0 },
+            { word: 'pragmatic', opts: ['Theoretical', 'Practical', 'Emotional', 'Abstract'], ans: 1 },
+            { word: 'mitigate', opts: ['Worsen', 'Ignore', 'Reduce severity', 'Eliminate'], ans: 2 },
+            { word: 'eloquent', opts: ['Shy', 'Fluent and persuasive', 'Loud', 'Quiet'], ans: 1 },
+            { word: 'arbitrary', opts: ['Careful', 'Random', 'Planned', 'Logical'], ans: 1 }
+        ];
+
+        const listenQs = [
+            { q: 'What is the main topic?', opts: ['Climate', 'Economy', 'Education reform', 'Healthcare'], ans: 2 },
+            { q: 'What is the key challenge?', opts: ['Funding', 'Technology', 'Teacher training', 'Motivation'], ans: 2 },
+            { q: 'What solution is proposed?', opts: ['More tests', 'Blended learning', 'Longer days', 'Smaller classes'], ans: 1 }
+        ];
+
+        const readQs = [
+            { q: 'Remote work was common before the pandemic.', ans: 'false' },
+            { q: 'Employees saved time by not commuting.', ans: 'true' },
+            { q: 'All companies adopted fully remote policies.', ans: 'ng' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initWaveform();
+            initTodayModule();
+            initRoadmap();
+        });
+
+        function initTodayModule() {
+            const dow = new Date().getDay(); // 0=Sun, 1=Mon, ..., 5=Fri, 6=Sat
+            const idx = dow === 0 ? 6 : dow - 1; // Convert to Mon=0, Tue=1, ..., Sun=6
+            todayMod = schedule[idx];
+            const m = modules[todayMod];
+
+            // Update greeting with current day
+            const fullDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            document.querySelector('.greeting-sub').textContent = `Happy ${fullDays[dow]}! 👋`;
+
+            document.getElementById('focusIcon').textContent = m.icon;
+            document.getElementById('focusName').textContent = m.name;
+            document.getElementById('focusDesc').textContent = m.desc;
+            document.getElementById('ctaName').textContent = m.name;
+
+            // Upcoming - show next 3 days
+            let html = '';
+            for (let i = 1; i <= 3; i++) {
+                const nextSchedIdx = (idx + i) % 7;
+                const nextDow = (dow + i) % 7;
+                const nm = modules[schedule[nextSchedIdx]];
+                html += `<div class="upcoming-chip">${nm.icon} ${nm.name} <span class="day">(${dayLabels[nextDow]})</span></div>`;
+            }
+            document.getElementById('upcomingRow').innerHTML = html;
+
+            console.log('Today:', fullDays[dow], '| Schedule idx:', idx, '| Module:', todayMod);
+        }
+
+        function initRoadmap() {
+            const dow = new Date().getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+            const schedIdx = dow === 0 ? 6 : dow - 1; // Mon=0, Tue=1, ..., Sun=6
+
+            // Roadmap order: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+            const roadmapDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+            let html = '';
+            for (let i = 0; i < 7; i++) {
+                const m = modules[schedule[i]];
+                const dayName = roadmapDays[i];
+                let cls = '';
+                if (i < schedIdx) cls = 'done';
+                else if (i === schedIdx) cls = 'today';
+                html += `<div class="day-item">
+                    <div class="day-circle ${cls}">${m.icon}</div>
+                    <div class="day-name ${i === schedIdx ? 'today' : ''}">${dayName}</div>
+                </div>`;
+            }
+            document.getElementById('daysRow').innerHTML = html;
+        }
+
+        function initWaveform() {
+            const wf = document.getElementById('waveform');
+            for (let i = 0; i < 20; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'wv-bar';
+                bar.style.animationDelay = (i * 0.04) + 's';
+                wf.appendChild(bar);
+            }
+        }
+
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            lucide.createIcons();
+        }
+
+        function updateTimer() {
+            const m = Math.floor(globalTime / 60);
+            const s = globalTime % 60;
+            document.getElementById('timerText').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+            const el = document.getElementById('timer');
+            el.classList.remove('warning', 'danger');
+            if (globalTime <= 60) el.classList.add('danger');
+            else if (globalTime <= 300) el.classList.add('warning');
+            if (globalTime <= 0) endSprint();
+        }
+
+        function startTimer() {
+            timerInt = setInterval(() => { globalTime--; updateTimer(); }, 1000);
+        }
+
+        // Free practice - directly go to chosen module (no streak increment)
+        function startModulePractice(mod) {
+            isDailySprint = false; // Free practice doesn't count for streak
+            todayMod = mod; // Override today's module
+            document.getElementById('coreTitle').textContent = modules[mod].name + ' Practice';
+            showScreen('module');
+            document.querySelector('.m-tabs').style.display = 'none';
+            document.querySelectorAll('.m-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(mod + 'Panel').classList.add('active');
+            startTimer();
+            if (mod === 'listening') loadListening();
+            else if (mod === 'reading') loadReading();
+        }
+
+        function startSprint() {
+            isDailySprint = true; // Daily sprint counts for streak
+            showScreen('warmup');
+            startTimer();
+            loadWarmup();
+        }
+
+        function loadWarmup() {
+            document.getElementById('warmupProgress').innerHTML = warmupQs.map((_, i) =>
+                `<div class="q-bar ${i < warmupIdx ? 'done' : ''} ${i === warmupIdx ? 'current' : ''}"></div>`
+            ).join('');
+
+            if (warmupIdx >= warmupQs.length) {
+                document.getElementById('coreTitle').textContent = modules[todayMod].name + ' Practice';
+                showScreen('module');
+                document.querySelector('.m-tabs').style.display = 'none';
+                document.querySelectorAll('.m-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(todayMod + 'Panel').classList.add('active');
+                if (todayMod === 'listening') loadListening();
+                else if (todayMod === 'reading') loadReading();
+                return;
+            }
+
+            const q = warmupQs[warmupIdx];
+            document.getElementById('warmupNum').textContent = `Question ${warmupIdx + 1} of 5`;
+            document.getElementById('warmupWord').textContent = q.word;
+            document.getElementById('warmupOpts').innerHTML = q.opts.map((o, i) =>
+                `<button class="opt" onclick="selectWarmup(${i},${q.ans})"><span class="opt-letter">${['A', 'B', 'C', 'D'][i]}</span>${o}</button>`
+            ).join('');
+        }
+
+        function selectWarmup(i, ans) {
+            const btns = document.querySelectorAll('#warmupOpts .opt');
+            btns.forEach((b, idx) => {
+                b.disabled = true;
+                if (idx === ans) b.classList.add('correct');
+                else if (idx === i) b.classList.add('wrong');
+            });
+            if (i === ans) correct++;
+            setTimeout(() => { warmupIdx++; loadWarmup(); }, 600);
+        }
+
+        function loadListening() {
+            if (listenIdx >= listenQs.length) return;
+            const q = listenQs[listenIdx];
+            document.getElementById('listenNum').textContent = `Question ${listenIdx + 1} of 3`;
+            document.getElementById('listenQ').textContent = q.q;
+            document.getElementById('listenOpts').innerHTML = q.opts.map((o, i) =>
+                `<button class="opt" onclick="selectListen(${i},${q.ans})"><span class="opt-letter">${['A', 'B', 'C', 'D'][i]}</span>${o}</button>`
+            ).join('');
+        }
+
+        function selectListen(i, ans) {
+            const btns = document.querySelectorAll('#listenOpts .opt');
+            btns.forEach((b, idx) => {
+                b.disabled = true;
+                if (idx === ans) b.classList.add('correct');
+                else if (idx === i) b.classList.add('wrong');
+            });
+            if (i === ans) correct++;
+            setTimeout(() => {
+                listenIdx++;
+                if (listenIdx < listenQs.length) loadListening();
+                else endSprint();
+            }, 600);
+        }
+
+        function toggleAudio() {
+            isPlaying = !isPlaying;
+            const box = document.getElementById('audioBox');
+            box.classList.toggle('paused', !isPlaying);
+            lucide.createIcons();
+            if (isPlaying) simAudio();
+        }
+
+        function simAudio() {
+            if (!isPlaying) return;
+            audioProgress += 1.1;
+            document.getElementById('trackFill').style.width = Math.min(audioProgress, 100) + '%';
+            const t = Math.floor(audioProgress * 0.9);
+            document.getElementById('audioTime').textContent = `${Math.floor(t / 60)}:${(t % 60).toString().padStart(2, '0')}`;
+            if (audioProgress < 100) setTimeout(simAudio, 100);
+        }
+
+        function loadReading() {
+            document.getElementById('readNum').textContent = `Question ${readIdx + 1} of 3`;
+            document.getElementById('readQ').textContent = readQs[readIdx].q;
+            document.querySelectorAll('.tfn').forEach(b => b.classList.remove('selected'));
+        }
+
+        function selectTFN(btn, val) {
+            document.querySelectorAll('.tfn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            if (val === readQs[readIdx].ans) correct++;
+            setTimeout(() => {
+                readIdx++;
+                if (readIdx < readQs.length) loadReading();
+                else endSprint();
+            }, 500);
+        }
+
+        function toggleRec() {
+            isRec = !isRec;
+            const btn = document.getElementById('recBtn');
+            const status = document.getElementById('recStatus');
+            const wf = document.getElementById('waveform');
+            btn.classList.toggle('recording', isRec);
+            status.classList.toggle('active', isRec);
+            wf.classList.toggle('active', isRec);
+            status.textContent = isRec ? 'Recording... Tap to stop' : 'Tap to start recording';
+            lucide.createIcons();
+        }
+
+        function completeSpeaking() {
+            correct++;
+            endSprint();
+        }
+
+        function checkWriting() {
+            const input = document.getElementById('fixInput');
+            const val = input.value.toLowerCase().trim();
+            if (val.includes('who was late') && val.includes('forgot') && (val.includes('bring') || val.includes('brought'))) {
+                input.classList.add('correct');
+                correct++;
+            }
+            setTimeout(endSprint, 800);
+        }
+
+        function endSprint() {
+            clearInterval(timerInt);
+            let total = warmupQs.length;
+            if (todayMod === 'listening') total += listenQs.length;
+            else if (todayMod === 'reading') total += readQs.length;
+            else total += 1;
+
+            const score = Math.round((correct / total) * 100);
+            const used = 15 * 60 - globalTime;
+
+            document.getElementById('finalScore').textContent = score + '%';
+            document.getElementById('finalTime').textContent = `${Math.floor(used / 60)}:${(used % 60).toString().padStart(2, '0')}`;
+
+            const dow = new Date().getDay();
+            const idx = dow === 0 ? 6 : dow - 1;
+            const nextIdx = (idx + 1) % 7;
+            const nextM = modules[schedule[nextIdx]];
+            document.getElementById('nextBox').innerHTML = `Tomorrow: <strong>${nextM.icon} ${nextM.name}</strong>`;
+
+            // Only increment streak if completing the DAILY recommended module
+            const today = new Date().toDateString();
+            if (isDailySprint && lastDone !== today) {
+                streak++;
+                lastDone = today;
+                localStorage.setItem('ieltsStreak', streak);
+                localStorage.setItem('ieltsLastCompletion', today);
+            }
+
+            document.getElementById('result').classList.add('active');
+            lucide.createIcons();
+        }
+
+        function finish() {
+            document.getElementById('result').classList.remove('active');
+            document.getElementById('streak').textContent = streak;
+            document.getElementById('mins').textContent = '15';
+            document.getElementById('progress').style.width = '100%';
+            showScreen('dashboard');
+            globalTime = 15 * 60;
+            warmupIdx = 0; listenIdx = 0; readIdx = 0; correct = 0;
+            updateTimer();
+        }
+    </script>
+</body>
+
+</html>
